@@ -1,0 +1,8 @@
+codequations.com {
+    reverse_proxy app:8000
+}
+
+localhost, 127.0.0.1 {
+    reverse_proxy app:8000
+    tls internal          # Caddy gera um self-signed da própria CA
+}
