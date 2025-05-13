@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  app:
+    build: .                 # ← faz o build local
+    image: oakdev:dev        # tag opcional (local)
+    restart: unless-stopped
+    expose:
+      - "8000"
+
+  caddy:
+    image: caddy:alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
